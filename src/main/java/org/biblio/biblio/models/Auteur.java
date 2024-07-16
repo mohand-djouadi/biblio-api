@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Auteur")
 @NoArgsConstructor
@@ -19,4 +21,6 @@ public class Auteur {
     private Long id;
     private String name;
     private String Country;
+    @ManyToMany(mappedBy = "auteurs")
+    private List<Livre> livres;
 }

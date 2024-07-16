@@ -6,8 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name = "User")
+@Table(name = "utilisateur")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -21,5 +23,6 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Emprunt> livres;
 }

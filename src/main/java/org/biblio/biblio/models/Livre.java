@@ -1,9 +1,19 @@
 package org.biblio.biblio.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Entity
+@Table(name = "livre")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
 public class Livre {
 
     @Id
@@ -11,4 +21,13 @@ public class Livre {
     private Long id;
     private String title;
     private String category;
+    @ManyToMany
+    @JoinTable(
+        name = "livre_auteur",
+        joinColumns = @JoinColumn(name = "auteur_id"),
+        inverseJoinColumns = @JoinColumn(name = "livre_id")
+    )
+    private List<Auteur> auteurs;
+    @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)
+    private List<Emprunt> emprunters;
 }
