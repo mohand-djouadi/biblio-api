@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "emprunt")
@@ -27,6 +28,6 @@ public class Emprunt {
     @JoinColumn(name = "livre_id", insertable = false, updatable = false)
     private Livre livre;
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Date startDate;
+    private Date endDate;
 }
