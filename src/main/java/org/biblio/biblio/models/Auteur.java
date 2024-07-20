@@ -20,7 +20,7 @@ public class Auteur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String Country;
+    private String country;
     @ManyToMany(mappedBy = "auteurs")
     private List<Livre> livres;
 }

@@ -24,13 +24,13 @@ public class LivreService {
         return livreRepository.findByTitleContainingIgnoreCase(title);
     }
     public List<Livre> getLivreByAuthor(String author) {
-        return livreRepository.findByAuteursContaining(author);
+        return livreRepository.findByAuteursNameContaining(author);
     }
     public List<Livre> getLivreByCategory(String category) {
         return livreRepository.findByCategoryContaining(category);
     }
     public List<Livre> getLiveByEmprunter(Long emprunter) {
-        return livreRepository.findByEmpruntersUtilisateur(emprunter);
+        return livreRepository.findByEmpruntersUtilisateurId(emprunter);
     }
 
 }
