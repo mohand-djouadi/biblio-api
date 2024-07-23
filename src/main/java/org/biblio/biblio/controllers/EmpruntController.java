@@ -1,24 +1,23 @@
 package org.biblio.biblio.controllers;
 
 import lombok.AllArgsConstructor;
-import org.biblio.biblio.services.LivreService;
+import org.biblio.biblio.models.Emprunt;
+import org.biblio.biblio.repositories.EmpruntRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import org.biblio.biblio.models.Livre;
 
 @RestController
-@RequestMapping(value = "/livres")
+@RequestMapping(value = "/emprunts")
 @AllArgsConstructor
-public class LivreController {
+public class EmpruntController {
 
-    private LivreService livreService;
+    private EmpruntRepository empruntRepository;
 
     @GetMapping(value = "/")
-    public List<Livre> getAllLivres() {
-        return livreService.getAllLivre();
+    public List<Emprunt> getAll() {
+        return empruntRepository.findAll();
     }
-
 }

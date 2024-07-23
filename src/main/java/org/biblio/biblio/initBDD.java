@@ -36,7 +36,7 @@ public class initBDD {
 
     public void initializeDB() {
         Faker faker = new Faker();
-        List<User> users = IntStream.range(1,5).mapToObj(index ->
+        List<User> users = IntStream.range(1,15).mapToObj(index ->
             User.builder()
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
