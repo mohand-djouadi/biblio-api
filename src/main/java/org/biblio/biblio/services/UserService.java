@@ -2,6 +2,9 @@ package org.biblio.biblio.services;
 
 import lombok.AllArgsConstructor;
 import org.biblio.biblio.repositories.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.biblio.biblio.models.User;
 
@@ -10,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
 
@@ -30,4 +33,13 @@ public class UserService {
         return userRepository.findByLivresLivreId(livre_id);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserDetails user = userRepository.findByUserName(username);
+        if (user == null) {
+            System.out.println("User not found");
+            throw new UsernameNotFoundException(username);
+        }
+        return user;
+    }
 }
