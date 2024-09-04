@@ -1,5 +1,6 @@
 package org.biblio.biblio.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,9 +29,11 @@ public class Livre {
         joinColumns = @JoinColumn(name = "auteur_id"),
         inverseJoinColumns = @JoinColumn(name = "livre_id")
     )
-    @JsonManagedReference
+//    @JsonManagedReference
+    @JsonIgnore
     private List<Auteur> auteurs;
     @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)
-    @JsonManagedReference
+//    @JsonManagedReference(value = "livre-user")
+    @JsonIgnore
     private List<Emprunt> emprunters;
 }

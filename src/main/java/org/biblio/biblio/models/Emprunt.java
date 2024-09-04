@@ -1,6 +1,8 @@
 package org.biblio.biblio.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,13 +23,15 @@ public class Emprunt {
     private EmpruntId id;
     @ManyToOne
     @MapsId("utilisateurId")
-    @JoinColumn(name = "utilisateur_id", insertable = false, updatable = false)
-    @JsonBackReference
+    @JoinColumn(name = "utilisateur_id", updatable = false)
+//    @JsonBackReference(value = "user-livre")
+    @JsonIgnore
     private User utilisateur;
     @ManyToOne
     @MapsId("livreId")
-    @JoinColumn(name = "livre_id", insertable = false, updatable = false)
-    @JsonBackReference
+    @JoinColumn(name = "livre_id", updatable = false)
+//    @JsonBackReference(value = "livre-user")
+    @JsonIgnore
     private Livre livre;
 
     private Date startDate;

@@ -2,9 +2,16 @@ package org.biblio.biblio.services;
 
 import lombok.AllArgsConstructor;
 import org.biblio.biblio.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.biblio.biblio.models.User;
 
@@ -12,10 +19,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
 public class UserService implements UserDetailsService {
 
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    @Lazy
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    @Lazy
+    private PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -30,7 +45,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
     public List<User> getUserByLivre(Long livre_id) {
-        return userRepository.findByLivresLivreId(livre_id);
+        return userRepository.findByEmpruntsLivreId(livre_id);
     }
 
     @Override
@@ -41,5 +56,20 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         return user;
+    }
+    public UserDetails verify(User user) {
+        Authentication authUser = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+        );
+        if (!authUser.isAuthenticated()) {
+            throw new BadCredentialsException("Bad credentials");
+        }
+        return loadUserByUsername(user.getUsername());
+    }
+
+    public User registerUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User registredUser = userRepository.save(user);
+        return registredUser;
     }
 }

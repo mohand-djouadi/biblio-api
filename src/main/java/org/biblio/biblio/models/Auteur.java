@@ -1,6 +1,7 @@
 package org.biblio.biblio.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class Auteur {
     private String name;
     private String country;
     @ManyToMany(mappedBy = "auteurs")
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnore
     private List<Livre> livres;
 }

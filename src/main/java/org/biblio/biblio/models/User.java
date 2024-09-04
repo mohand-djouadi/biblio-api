@@ -1,9 +1,9 @@
 package org.biblio.biblio.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,9 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "utilisateur")
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
+@Data
 public class User implements UserDetails {
 
     @Id
@@ -29,8 +28,9 @@ public class User implements UserDetails {
     private String email;
     private String password;
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Emprunt> livres;
+//    @JsonManagedReference(value = "user-livre")
+    @JsonIgnore
+    private List<Emprunt> emprunts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
