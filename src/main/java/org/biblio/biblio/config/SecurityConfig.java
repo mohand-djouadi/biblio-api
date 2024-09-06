@@ -1,7 +1,5 @@
 package org.biblio.biblio.config;
 
-import org.biblio.biblio.services.JwtService;
-import org.biblio.biblio.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

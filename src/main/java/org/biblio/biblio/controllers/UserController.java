@@ -1,5 +1,7 @@
 package org.biblio.biblio.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.biblio.biblio.DTOs.ChangePasswordDTO;
 import org.biblio.biblio.DTOs.UserDTO;
 import org.biblio.biblio.services.JwtService;
 import org.biblio.biblio.services.UserService;
@@ -57,5 +59,17 @@ public class UserController {
         }
         response.put("token", token);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(value = "/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordDTO passwordData, HttpServletRequest request) {
+        String jwtToken = request.getHeader("Authorization").substring(7);
+        String username = jwtService.exractUsername(jwtToken);
+        userService.changePassword(
+                passwordData.getOldPassword(),
+                passwordData.getNewPassword(),
+                username
+        );
+        return ResponseEntity.ok("password updated successfully");
     }
 }

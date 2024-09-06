@@ -3,6 +3,7 @@ package org.biblio.biblio.services;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -79,7 +80,7 @@ public class JwtService {
     }
 
     public Key getKey() {
-        byte[] bytes = Base64.getDecoder().decode(SECRET_KEY);
+        byte[] bytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(bytes);
     }
 
