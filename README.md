@@ -10,7 +10,7 @@ Cette API REST permet de gérer une bibliothèque en offrant des fonctionnalité
 - Spring Boot
 - Spring Security (Basic Auth & JWT)
 - Spring Data JPA
-- PostgreSQL / MySQL
+- PostgreSQL 
 - Lombok
 - Maven
 
@@ -18,22 +18,22 @@ Cette API REST permet de gérer une bibliothèque en offrant des fonctionnalité
 
 ### Authentification
 
-- **POST /api/auth/signup** : Inscription d'un nouvel utilisateur
-- **POST /api/auth/login** : Connexion et récupération d'un token JWT
-- **POST /api/auth/change-password** : Modification du mot de passe
+- **POST /auth/signup** : Inscription d'un nouvel utilisateur
+- **POST /auth/login** : Connexion et récupération d'un token JWT
+- **POST /auth/change-password** : Modification du mot de passe
 
 ### Gestion des livres
 
-- **GET /api/livres** : Récupérer la liste des livres
-- **POST /api/livres/{id}/rate** : Évaluer un livre (nécessite une authentification)
+- **GET /livres** : Récupérer la liste des livres
+- **POST /livres/rate** : Évaluer un livre (nécessite une authentification)
 
 ### Gestion des emprunts
 
-- **GET /api/emprunts** : Récupérer la liste des emprunts d'un utilisateur (nécessite une authentification)
+- **GET /emprunts** : Récupérer la liste des emprunts d'un utilisateur (nécessite une authentification)
 
 ### Gestion des auteurs
 
-- **GET /api/auteurs** : Récupérer la liste des auteurs
+- **GET /auteurs** : Récupérer la liste des auteurs
 
 ## Sécurité & Authentification
 
