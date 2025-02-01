@@ -71,7 +71,7 @@ public class JwtService {
     }
 
     public boolean validateToken(String token, User user) {
-        return (user.getUsername().equals(exractUsername(token)) && isTokenExpired(token));
+        return (user.getUsername().equals(exractUsername(token)) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {
