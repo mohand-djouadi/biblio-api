@@ -33,4 +33,15 @@ public class LivreService {
         return livreRepository.findByEmpruntersUtilisateurId(emprunter);
     }
 
+    public Livre updateRate(Long livre_id, double rate) {
+        Optional<Livre> optionalLivre = livreRepository.findById(livre_id);
+        Livre livre = optionalLivre.orElse(null);
+        if (livre == null) {
+            throw new IllegalArgumentException("livre not found");
+        }
+        livre.setRate(rate);
+        livreRepository.save(livre);
+        return livre;
+    }
+
 }

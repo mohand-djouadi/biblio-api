@@ -2,8 +2,11 @@ package org.biblio.biblio.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.biblio.biblio.DTOs.ChangePasswordDTO;
+import org.biblio.biblio.DTOs.RateLivreDTO;
 import org.biblio.biblio.DTOs.UserDTO;
+import org.biblio.biblio.models.Livre;
 import org.biblio.biblio.services.JwtService;
+import org.biblio.biblio.services.LivreService;
 import org.biblio.biblio.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,8 @@ public class UserController {
 
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private LivreService livreService;
 
     @GetMapping(value = "/")
     public List<User> getAllUsers() {
@@ -71,5 +76,14 @@ public class UserController {
                 username
         );
         return ResponseEntity.ok("password updated successfully");
+    }
+
+    @PostMapping(value = "/rating")
+    public ResponseEntity<String> RateLivre(@RequestBody RateLivreDTO rateLivre) {
+        Long livreId = rateLivre.getLivreId();
+        double rate = rateLivre.getRate();
+        Livre livre = livreService.updateRate(livreId, rate);
+
+        return ResponseEntity.ok("livre " + livre.getTitle() + " Rated successfuly");
     }
 }

@@ -3,10 +3,7 @@ package org.biblio.biblio.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
+@Getter @Setter
 public class Livre {
 
     @Id
@@ -23,6 +20,7 @@ public class Livre {
     private Long id;
     private String title;
     private String category;
+    private double rate;
     @ManyToMany
     @JoinTable(
         name = "livre_auteur",
