@@ -14,4 +14,5 @@ public interface LivreRepository extends JpaRepository<Livre, Long> {
     List<Livre> findByAuteursNameContaining(String auteur);
     List<Livre> findByCategoryContaining(String category);
     List<Livre> findByEmpruntersUtilisateurId(Long user_id);
+    List<Livre> findByAuteursId(Long auteur_id);
 }

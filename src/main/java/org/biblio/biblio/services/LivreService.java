@@ -32,6 +32,9 @@ public class LivreService {
     public List<Livre> getLiveByEmprunter(Long emprunter) {
         return livreRepository.findByEmpruntersUtilisateurId(emprunter);
     }
+    public List<Livre>getLivreByAuteur(Long auteur) {
+        return livreRepository.findByAuteursId(auteur);
+    }
 
     public Livre updateRate(Long livre_id, double rate) {
         Optional<Livre> optionalLivre = livreRepository.findById(livre_id);
