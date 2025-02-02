@@ -22,12 +22,12 @@ public class LivreController {
         return livreService.getAllLivre();
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/emprunter")
     public List<Livre> getLivreEmprunter(@RequestParam Long emprunter) {
         return livreService.getLiveByEmprunter(emprunter);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/auteur")
     public List<Livre> getLivreAuteur(@RequestParam Long auteur) {
         return livreService.getLiveByEmprunter(auteur);
     }

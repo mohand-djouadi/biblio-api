@@ -27,10 +27,14 @@ public class User implements UserDetails {
     private String userName;
     private String email;
     private String password;
+
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
-//    @JsonManagedReference(value = "user-livre")
     @JsonIgnore
     private List<Emprunt> emprunts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Commande> commandes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

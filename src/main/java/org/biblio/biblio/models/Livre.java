@@ -21,17 +21,23 @@ public class Livre {
     private String title;
     private String category;
     private double rate;
+    @Column(nullable = true)
+    private int quantity;
+
     @ManyToMany
     @JoinTable(
         name = "livre_auteur",
         joinColumns = @JoinColumn(name = "auteur_id"),
         inverseJoinColumns = @JoinColumn(name = "livre_id")
     )
-//    @JsonManagedReference
     @JsonIgnore
     private List<Auteur> auteurs;
+
     @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)
-//    @JsonManagedReference(value = "livre-user")
     @JsonIgnore
     private List<Emprunt> emprunters;
+
+    @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<CommandeLivre> livres;
 }

@@ -1,32 +1,28 @@
 package org.biblio.biblio.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "emprunt")
+@Table(name = "commande_livre")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
-public class Emprunt {
+public class CommandeLivre {
 
     @EmbeddedId
-    private EmpruntId id;
+    private CommandeLivreId id;
 
     @ManyToOne
-    @MapsId("utilisateurId")
-    @JoinColumn(name = "utilisateur_id", updatable = false)
+    @MapsId("commandeId")
+    @JoinColumn(name = "commande_id", updatable = false)
     @JsonIgnore
-    private User utilisateur;
+    private Commande commande;
 
     @ManyToOne
     @MapsId("livreId")
@@ -34,6 +30,6 @@ public class Emprunt {
     @JsonIgnore
     private Livre livre;
 
-    private Date startDate;
-    private Date endDate;
+    @Column(nullable = true)
+    private int quantity;
 }
