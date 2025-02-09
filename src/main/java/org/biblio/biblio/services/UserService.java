@@ -1,6 +1,7 @@
 package org.biblio.biblio.services;
 
 import lombok.AllArgsConstructor;
+import org.biblio.biblio.CustomExceptions.UsernameOrEmailUsedException;
 import org.biblio.biblio.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -61,13 +62,15 @@ public class UserService implements UserDetailsService {
         Authentication authUser = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
         );
-        if (!authUser.isAuthenticated()) {
-            throw new BadCredentialsException("Bad credentials");
-        }
-        return loadUserByUsername(user.getUsername());
+        return (UserDetails) authUser.getPrincipal();
     }
 
     public User registerUser(User user) {
+        User existedUserName = userRepository.findByUserName(user.getUsername());
+        User existedEmail = userRepository.findByEmail(user.getEmail());
+        if (existedEmail != null || existedUserName != null) {
+            throw new UsernameOrEmailUsedException("username or email already used");
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User registredUser = userRepository.save(user);
         return registredUser;
