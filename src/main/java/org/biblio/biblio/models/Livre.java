@@ -23,6 +23,8 @@ public class Livre {
     private double rate;
     @Column(nullable = true)
     private int quantity;
+    @Column(nullable = true)
+    private Double price;
 
     @ManyToMany
     @JoinTable(

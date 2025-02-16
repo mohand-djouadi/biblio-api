@@ -19,6 +19,8 @@ public class Commande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
+    @Column(nullable = true)
+    private Double totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
