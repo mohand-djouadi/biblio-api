@@ -3,6 +3,7 @@ package org.biblio.biblio.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Response;
 import org.biblio.biblio.models.Commande;
+import org.biblio.biblio.repositories.CommandeRepository;
 import org.biblio.biblio.repositories.UserRepository;
 import org.biblio.biblio.services.CommandeService;
 import org.biblio.biblio.services.JwtService;
@@ -24,6 +25,9 @@ public class CommandeController {
 
     @Autowired
     private CommandeService commandeService;
+
+    @Autowired
+    private CommandeRepository commandeRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -82,4 +86,24 @@ public class CommandeController {
         }
     }
 
+    @PutMapping(value = "/cancel/{id}")
+    public ResponseEntity<?> cancelCommande(@PathVariable Long id, HttpServletRequest request) {
+        Map<String,Object> response = new HashMap<>();
+        User user = this.userRepository.findByUserName(
+                this.jwtService.exractUsername(
+                        request.getHeader("Authorization").substring(7)
+                )
+        );
+        if (user == null) {
+            response.put("error", "user not found");
+            return ResponseEntity.status(400).body(response);
+        }
+        Commande commande = this.commandeService.getCommande(id);
+        if (commande == null) {
+            response.put("error", "commande not found");
+            return ResponseEntity.status(400).body(response);
+        }
+        commande.setStatus("annuler");
+        return ResponseEntity.status(201).body(this.commandeRepository.save(commande));
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CommandeService {
@@ -28,6 +29,10 @@ public class CommandeService {
 
     public List<Commande> getUserCommandes(Long userId) {
         return this.commandeRepository.findByUserId(userId);
+    }
+
+    public Commande getCommande(Long id) {
+        return this.commandeRepository.findById(id).orElseThrow(() -> null);
     }
 
     public Commande createEmptyCommande(User user) {
