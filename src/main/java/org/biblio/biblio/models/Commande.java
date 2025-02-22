@@ -18,9 +18,10 @@ public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String status;
-    @Column(nullable = true)
-    private Double totalPrice;
+    @Column(nullable = false)
+    private String status = "en attente récupération";
+    @Column(nullable = false)
+    private Double totalPrice = 0.0;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -30,4 +31,14 @@ public class Commande {
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CommandeLivre> commandes;
+
+    @PrePersist
+    public void prePersist() {
+        if (status == null) {
+            status = "en attente récupération";
+        }
+        if (totalPrice == null) {
+            totalPrice = 0.0;
+        }
+    }
 }

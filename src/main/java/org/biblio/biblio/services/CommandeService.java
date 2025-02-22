@@ -1,8 +1,6 @@
 package org.biblio.biblio.services;
 
-import org.biblio.biblio.models.Commande;
-import org.biblio.biblio.models.CommandeLivre;
-import org.biblio.biblio.models.Livre;
+import org.biblio.biblio.models.*;
 import org.biblio.biblio.repositories.CommandeLivreRepository;
 import org.biblio.biblio.repositories.CommandeRepository;
 import org.biblio.biblio.repositories.LivreRepository;
@@ -32,27 +30,38 @@ public class CommandeService {
         return this.commandeRepository.findByUserId(userId);
     }
 
-    public Commande createEmptyCommande() {
+    public Commande createEmptyCommande(User user) {
         return this.commandeRepository.save(
-            Commande.builder().build()
+            Commande.builder()
+                .user(user)
+                .build()
         );
     }
 
-    public Commande createCommande(List<Map<String,Object>> livres) {
-        Commande commande = this.createEmptyCommande();
+    public Commande createCommande(List<Map<String,Object>> livres, User user) {
+        Commande commande = this.createEmptyCommande(user);
+        System.out.println("id commande : " + commande.getId());
         Double totalPrice = 0.0;
         for (Map<String,Object> livre: livres) {
+            Livre currentLivre = this.livreRepository.findById(
+                Long.parseLong(livre.get("id").toString())
+            ).orElseThrow(() -> new NullPointerException("livre not found"));
+            System.out.println("id livre : " + currentLivre.getId());
+            CommandeLivreId commandeLivreId = CommandeLivreId.builder()
+                .livreId(currentLivre.getId())
+                .commandeId(commande.getId()).build();
             this.commandeLivreRepository.save(
-                CommandeLivre.builder()
-                    .livre(this.livreRepository.findById(Long.parseLong(livre.get("id").toString()))
-                       .orElseThrow(() -> new RuntimeException("Livre not found"))
-                    )
-                    .commande(commande)
-                    .quantity(Integer.parseInt(livre.get("quantity").toString()))
-                    .build()
+                    CommandeLivre.builder()
+                        .id(commandeLivreId)
+                        .commande(commande)
+                        .livre(currentLivre)
+                        .quantity(Integer.parseInt(livre.get("quantity").toString()))
+                        .build()
             );
-            totalPrice += Integer.parseInt(livre.get("price").toString());
+            totalPrice += currentLivre.getPrice() * Integer.parseInt(livre.get("quantity").toString());
         }
+        commande.setTotalPrice(totalPrice);
+        this.commandeRepository.save(commande);
         return commande;
     }
 
