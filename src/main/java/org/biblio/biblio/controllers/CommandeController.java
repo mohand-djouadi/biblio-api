@@ -1,6 +1,7 @@
 package org.biblio.biblio.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.coyote.Response;
 import org.biblio.biblio.models.Commande;
 import org.biblio.biblio.repositories.UserRepository;
 import org.biblio.biblio.services.CommandeService;
@@ -28,8 +29,25 @@ public class CommandeController {
     private UserRepository userRepository;
 
     @GetMapping(value = "/")
-    public List<Commande> getAllCommandes() {
-        return this.commandeService.getAllCommandes();
+    public ResponseEntity<?> getUserCommandes(HttpServletRequest request) {
+        Map<String,Object> response = new HashMap<>();
+        try {
+            Long userId = this.userRepository.findByUserName(
+                    this.jwtService.exractUsername(
+                            request.getHeader("Authorization").substring(7)
+                    )
+            ).getId();
+            if (userId == null) {
+                response.put("error", "user not found");
+                return ResponseEntity.status(400).body(response);
+            }
+            List<Commande> commandes = this.commandeService.getUserCommandes(userId);
+            return ResponseEntity.status(200).body(commandes);
+        } catch(Exception e) {
+            System.out.println("error : " + e.getMessage());
+            response.put("error", "Internal server error");
+            return ResponseEntity.status(500).body(response);
+        }
     }
 
     @PostMapping(value = "add-commande")
@@ -38,16 +56,30 @@ public class CommandeController {
         HttpServletRequest request
     ) {
         Map<String,Object> response = new HashMap<>();
-        User user = this.userRepository.findByUserName(
-            this.jwtService.exractUsername(
-                request.getHeader("Authorization").substring(7)
-            )
-        );
-        List<Map<String,Object>> products = (List<Map<String,Object>>) requestBody.get("livres");
-        Commande commande = this.commandeService.createCommande(products, user);
-        response.put("id", commande.getId());
-        response.put("user", user.getId());
-        response.put("total price", commande.getTotalPrice());
-        return ResponseEntity.status(201).body(response);
+        try {
+            User user = this.userRepository.findByUserName(
+                    this.jwtService.exractUsername(
+                            request.getHeader("Authorization").substring(7)
+                    )
+            );
+            if (user == null) {
+                response.put("error", "user not found");
+                return ResponseEntity.status(400).body(response);
+            }
+            List<Map<String,Object>> products = (List<Map<String,Object>>) requestBody.get("livres");
+            Commande commande = this.commandeService.createCommande(products, user);
+            response.put("id", commande.getId());
+            response.put("user", user.getId());
+            response.put("totalPrice", commande.getTotalPrice());
+            return ResponseEntity.status(201).body(response);
+        } catch(NullPointerException e) {
+            response.put("error", "livre not found");
+            return ResponseEntity.status(400).body(response);
+        } catch(Exception e) {
+            System.out.println("error : " + e.getMessage());
+            response.put("error", "Internal srver error");
+            return ResponseEntity.status(500).body(response);
+        }
     }
+
 }
