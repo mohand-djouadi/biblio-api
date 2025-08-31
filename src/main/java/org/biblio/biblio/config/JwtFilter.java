@@ -34,7 +34,11 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         // Ignore JWT authentication for specific paths
-        if (path.equals("/users/login") || path.equals("/users/signup")) {
+        if (
+            path.equals("/users/login") ||
+            path.equals("/users/signup") ||
+            path.equals("/livres/")
+        ) {
             filterChain.doFilter(request, response);
             return;
         }

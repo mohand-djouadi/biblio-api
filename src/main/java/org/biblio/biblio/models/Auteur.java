@@ -23,8 +23,8 @@ public class Auteur {
     private Long id;
     private String name;
     private String country;
+    private String imageUrl;
     @ManyToMany(mappedBy = "auteurs")
-//    @JsonBackReference
     @JsonIgnore
     private List<Livre> livres;
 }

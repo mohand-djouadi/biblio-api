@@ -25,6 +25,7 @@ public class Livre {
     private int quantity;
     @Column(nullable = true)
     private Double price;
+    private String imageUrl;
 
     @ManyToMany
     @JoinTable(
