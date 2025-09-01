@@ -33,3 +33,4 @@ target
 .vscode/
 datacsv
 .env
+src/main/java/org/biblio/biblio/config/AppConfig.java
