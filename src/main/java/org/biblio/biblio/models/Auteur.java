@@ -24,6 +24,9 @@ public class Auteur {
     private String name;
     private String country;
     private String imageUrl;
+    @Column(columnDefinition = "TEXT")
+    private String description;
+    private Double rate;
     @ManyToMany(mappedBy = "auteurs")
     @JsonIgnore
     private List<Livre> livres;
