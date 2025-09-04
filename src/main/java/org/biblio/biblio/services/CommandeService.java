@@ -63,7 +63,7 @@ public class CommandeService {
                         .quantity(Integer.parseInt(livre.get("quantity").toString()))
                         .build()
             );
-            totalPrice += currentLivre.getPrice() * Integer.parseInt(livre.get("quantity").toString());
+            totalPrice += currentLivre.getSellPrice() * Integer.parseInt(livre.get("quantity").toString());
         }
         commande.setTotalPrice(totalPrice);
         this.commandeRepository.save(commande);
