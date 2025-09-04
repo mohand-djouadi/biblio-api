@@ -27,9 +27,6 @@ public class LivreController {
         return livreService.getLiveByEmprunter(emprunter);
     }
 
-    @GetMapping(value = "/auteur")
-    public List<Livre> getLivreAuteur(@RequestParam Long auteur) {
-        return livreService.getLiveByEmprunter(auteur);
-    }
+
 
 }

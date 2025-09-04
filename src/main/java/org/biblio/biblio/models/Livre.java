@@ -1,7 +1,6 @@
 package org.biblio.biblio.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,11 +20,16 @@ public class Livre {
     private String title;
     private String category;
     private double rate;
-    @Column(nullable = true)
     private int quantity;
     @Column(nullable = true)
-    private Double price;
+    private Double sellPrice;
+    @Column(nullable = true)
+    private Double borrowPrice;
+    @Column(columnDefinition = "TEXT")
+    private String description;
     private String imageUrl;
+    @Column(nullable = true)
+    private Long likes;
 
     @ManyToMany
     @JoinTable(
