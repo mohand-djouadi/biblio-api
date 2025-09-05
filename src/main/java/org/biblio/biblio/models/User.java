@@ -36,6 +36,10 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Commande> commandes;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Comment> comments;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();

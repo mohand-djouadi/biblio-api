@@ -20,7 +20,7 @@ public interface AuteurRepository extends JpaRepository<Auteur, Long> {
         value = """
         select * from auteur a
         join livre_auteur la on la.auteur_id = a.id where
-        la.principal = true and la.livre_id = :livreId 
+        la.principal = true and la.livre_id = :livreId
         """, nativeQuery = true
     )
     Optional<Auteur> GetAuteurDetailByLivre(@Param("livreId") Long livreId);

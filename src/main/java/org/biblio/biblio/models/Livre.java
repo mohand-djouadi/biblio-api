@@ -42,4 +42,7 @@ public class Livre {
     @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CommandeLivre> livres;
+
+    @OneToOne(mappedBy = "livre")
+    private Comment comment;
 }
