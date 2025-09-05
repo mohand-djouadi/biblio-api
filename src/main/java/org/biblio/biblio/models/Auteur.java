@@ -27,7 +27,7 @@ public class Auteur {
     @Column(columnDefinition = "TEXT")
     private String description;
     private Double rate;
-    @ManyToMany(mappedBy = "auteurs")
+    @OneToMany(mappedBy = "auteur")
     @JsonIgnore
-    private List<Livre> livres;
+    private List<LivreAuteur> auteurLivre;
 }

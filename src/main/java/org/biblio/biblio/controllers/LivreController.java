@@ -27,6 +27,4 @@ public class LivreController {
         return livreService.getLiveByEmprunter(emprunter);
     }
 
-
-
 }

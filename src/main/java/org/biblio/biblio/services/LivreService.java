@@ -23,9 +23,6 @@ public class LivreService {
     public List<Livre> getLivreByTitle(String title) {
         return livreRepository.findByTitleContainingIgnoreCase(title);
     }
-    public List<Livre> getLivreByAuthor(String author) {
-        return livreRepository.findByAuteursNameContaining(author);
-    }
     public List<Livre> getLivreByCategory(String category) {
         return livreRepository.findByCategoryContaining(category);
     }
@@ -33,7 +30,7 @@ public class LivreService {
         return livreRepository.findByEmpruntersUtilisateurId(emprunter);
     }
     public List<Livre>getLivreByAuteur(Long auteur) {
-        return livreRepository.findByAuteursId(auteur);
+        return livreRepository.findByLivreAuteursAuteurId(auteur);
     }
 
     public Livre updateRate(Long livre_id, double rate) {

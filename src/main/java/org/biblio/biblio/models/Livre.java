@@ -31,14 +31,8 @@ public class Livre {
     @Column(nullable = true)
     private Long likes;
 
-    @ManyToMany
-    @JoinTable(
-        name = "livre_auteur",
-        joinColumns = @JoinColumn(name = "auteur_id"),
-        inverseJoinColumns = @JoinColumn(name = "livre_id")
-    )
-    @JsonIgnore
-    private List<Auteur> auteurs;
+    @OneToMany(mappedBy = "livre")
+    private List<LivreAuteur> livreAuteurs;
 
     @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)
     @JsonIgnore

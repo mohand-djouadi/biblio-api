@@ -27,7 +27,7 @@ public class AuteurService {
         return auteurRepository.findByCountry(country);
     }
     public List<Auteur> getAuteurByLivre(Long livre) {
-        return auteurRepository.findByLivresId(livre);
+        return auteurRepository.findByAuteurLivreLivreId(livre);
     }
 
 }
