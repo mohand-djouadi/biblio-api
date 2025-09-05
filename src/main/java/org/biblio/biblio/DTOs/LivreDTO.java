@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,6 +21,8 @@ public class LivreDTO {
     private Double borrowPrice;
     private String description;
     private String imageUrl;
+    private String author;
+    private List<String> categories;
     private Long likes;
 
 }

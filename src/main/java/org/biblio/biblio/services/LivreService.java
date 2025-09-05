@@ -2,8 +2,11 @@ package org.biblio.biblio.services;
 
 import lombok.AllArgsConstructor;
 import org.biblio.biblio.DTOs.LivreDTO;
+import org.biblio.biblio.models.Auteur;
 import org.biblio.biblio.models.Livre;
+import org.biblio.biblio.repositories.AuteurRepository;
 import org.biblio.biblio.repositories.LivreRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +16,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class LivreService {
 
+    @Autowired
     private LivreRepository livreRepository;
+    @Autowired
+    private AuteurRepository auteurRepository;
 
     public List<LivreDTO> getAllLivre() {
         return this.livreRepository.findAll().stream().map(l ->
@@ -33,10 +39,14 @@ public class LivreService {
     public LivreDTO getLivreById(Long id) {
         Livre livre = this.livreRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("livre not found"));
+        Auteur auteur = auteurRepository.GetAuteurDetailByLivre(livre.getId())
+            .orElseThrow(() ->new RuntimeException("author not found"));
         return LivreDTO.builder()
             .id(livre.getId())
             .rate(livre.getRate())
             .likes(livre.getLikes())
+            .author(auteur.getName())
+            .categories(List.of(livre.getCategory()))
             .sellPrice(livre.getSellPrice())
             .imageUrl(livre.getImageUrl())
             .description(livre.getDescription())
