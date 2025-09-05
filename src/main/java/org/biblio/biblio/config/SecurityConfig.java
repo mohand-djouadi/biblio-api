@@ -37,7 +37,8 @@ public class SecurityConfig {
                         "/users/signup",
                         "/livres/",
                         "/livres/detail",
-                        "/auteurs/**"
+                        "/auteurs/**",
+                        "/comments/**"
                     ).permitAll()
                     .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .anyRequest().authenticated()

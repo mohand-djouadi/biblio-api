@@ -27,6 +27,7 @@ public class User implements UserDetails {
     private String userName;
     private String email;
     private String password;
+    private String imageUrl;
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
     @JsonIgnore
