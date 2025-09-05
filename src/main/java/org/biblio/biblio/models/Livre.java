@@ -32,6 +32,7 @@ public class Livre {
     private Long likes;
 
     @OneToMany(mappedBy = "livre")
+    @JsonIgnore
     private List<LivreAuteur> livreAuteurs;
 
     @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)

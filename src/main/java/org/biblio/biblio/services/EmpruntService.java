@@ -23,7 +23,7 @@ public class EmpruntService {
     private EmpruntsRepository empruntsRepository;
 
     @Autowired
-    private LivreService livreService;
+    private LivreRepository livreRepository;
 
     public List<Emprunt> getUserEmprunts(Long userId) {
         return this.empruntsRepository.findByUtilisateurId(userId);
@@ -32,7 +32,7 @@ public class EmpruntService {
     public Emprunt createEmprunts(Map<String,Object> empruntInfo, User user) {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Livre livre = livreService.getLivreById(
+            Livre livre = livreRepository.findById(
                 Long.parseLong(empruntInfo.get("id").toString())
             ).orElseThrow(() -> new NullPointerException("livre not found"));
             Emprunt emprunt = Emprunt.builder()

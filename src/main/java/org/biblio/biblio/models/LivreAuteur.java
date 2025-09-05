@@ -29,5 +29,6 @@ public class LivreAuteur {
     @JoinColumn(name = "auteur_id", updatable = false)
     @JsonIgnore
     private Auteur auteur;
+    private Boolean principal;
 
 }

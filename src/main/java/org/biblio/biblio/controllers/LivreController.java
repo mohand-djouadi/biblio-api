@@ -1,6 +1,7 @@
 package org.biblio.biblio.controllers;
 
 import lombok.AllArgsConstructor;
+import org.biblio.biblio.DTOs.LivreDTO;
 import org.biblio.biblio.services.LivreService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,13 @@ public class LivreController {
     private LivreService livreService;
 
     @GetMapping(value = "/")
-    public List<Livre> getAllLivres() {
+    public List<LivreDTO> getAllLivres() {
         return livreService.getAllLivre();
+    }
+
+    @GetMapping(value = "/detail")
+    public LivreDTO getLivreDetail(@RequestParam Long id) {
+        return this.livreService.getLivreById(id);
     }
 
     @GetMapping(value = "/emprunter")

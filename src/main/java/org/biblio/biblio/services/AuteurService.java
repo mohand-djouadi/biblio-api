@@ -1,6 +1,7 @@
 package org.biblio.biblio.services;
 
 import lombok.AllArgsConstructor;
+import org.biblio.biblio.DTOs.AuteurDTO;
 import org.biblio.biblio.models.Auteur;
 import org.biblio.biblio.repositories.AuteurRepository;
 import org.springframework.stereotype.Service;
@@ -17,17 +18,17 @@ public class AuteurService {
     public List<Auteur> getAllAuteurs() {
         return auteurRepository.findAll();
     }
-    public Optional<Auteur> getAuteurById(Long id) {
-        return auteurRepository.findById(id);
-    }
-    public List<Auteur> getAuteurByName(String name) {
-        return auteurRepository.findByNameContainingIgnoreCase(name);
-    }
-    public List<Auteur> getAuteurByCountry(String country) {
-        return auteurRepository.findByCountry(country);
-    }
-    public List<Auteur> getAuteurByLivre(Long livre) {
-        return auteurRepository.findByAuteurLivreLivreId(livre);
+    public AuteurDTO getAuteurByLivre(Long livre) {
+        Auteur auteur = auteurRepository.GetAuteurDetailByLivre(livre)
+            .orElseThrow(() -> new RuntimeException("Auteur not found"));
+        return AuteurDTO.builder()
+            .id(auteur.getId())
+            .rate(auteur.getRate())
+            .description(auteur.getDescription())
+            .name(auteur.getName())
+            .imageUrl(auteur.getImageUrl())
+            .country(auteur.getCountry())
+            .build();
     }
 
 }

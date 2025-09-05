@@ -1,6 +1,7 @@
 package org.biblio.biblio.services;
 
 import lombok.AllArgsConstructor;
+import org.biblio.biblio.DTOs.LivreDTO;
 import org.biblio.biblio.models.Livre;
 import org.biblio.biblio.repositories.LivreRepository;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,35 @@ public class LivreService {
 
     private LivreRepository livreRepository;
 
-    public List<Livre> getAllLivre() {
-        return livreRepository.findAll();
+    public List<LivreDTO> getAllLivre() {
+        return this.livreRepository.findAll().stream().map(l ->
+            LivreDTO.builder()
+                .id(l.getId())
+                .rate(l.getRate())
+                .likes(l.getLikes())
+                .sellPrice(l.getSellPrice())
+                .imageUrl(l.getImageUrl())
+                .description(l.getDescription())
+                .borrowPrice(l.getBorrowPrice())
+                .category(l.getCategory())
+                .title(l.getTitle())
+                .build()
+        ).toList();
     }
-    public Optional<Livre> getLivreById(Long id) {
-        return livreRepository.findById(id);
+    public LivreDTO getLivreById(Long id) {
+        Livre livre = this.livreRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("livre not found"));
+        return LivreDTO.builder()
+            .id(livre.getId())
+            .rate(livre.getRate())
+            .likes(livre.getLikes())
+            .sellPrice(livre.getSellPrice())
+            .imageUrl(livre.getImageUrl())
+            .description(livre.getDescription())
+            .borrowPrice(livre.getBorrowPrice())
+            .category(livre.getCategory())
+            .title(livre.getTitle())
+            .build();
     }
     public List<Livre> getLivreByTitle(String title) {
         return livreRepository.findByTitleContainingIgnoreCase(title);
