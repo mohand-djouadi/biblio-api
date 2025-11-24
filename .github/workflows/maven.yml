@@ -21,6 +21,7 @@ jobs:
       run: mvn clean package -DskipTests
 
   publish:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: LogIn to DockerHub
