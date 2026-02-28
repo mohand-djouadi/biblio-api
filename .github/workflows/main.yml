@@ -1,0 +1,11 @@
+name: ci-cd pipeline
+on:
+  - push
+  - pull_request
+jobs:
+  test:
+    name: run unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: run unit tests
+        run: mvn test
