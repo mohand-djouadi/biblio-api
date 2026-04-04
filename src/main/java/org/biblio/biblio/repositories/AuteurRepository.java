@@ -11,10 +11,6 @@ import java.util.Optional;
 public interface AuteurRepository extends JpaRepository<Auteur, Long> {
     List<Auteur> findAll();
     Optional<Auteur> findById(Long id);
-    List<Auteur> findByNameContaining(String name);
-    List<Auteur> findByNameContainingIgnoreCase(String name);
-    List<Auteur> findByCountry(String country);
-    List<Auteur> findByAuteurLivreLivreId(Long livreId);
 
     @Query(
         value = """
