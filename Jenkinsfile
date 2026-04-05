@@ -4,16 +4,6 @@ pipeline {
         githubPush()
     }
     stages {
-        stage('debug status') {
-            steps {
-                script {
-                    githubNotify status: 'PENDING',
-                                 description: 'debug test',
-                                 context: 'jenkins test',
-                                 credentialsId: 'github_token'
-                }
-            }
-        }
         stage ('Checkout') {
             steps {
                 checkout scm
@@ -33,20 +23,26 @@ pipeline {
     }
     post {
         success {
-            githubNotify account: 'mohand-djouadi',
-                         repo: 'biblio-api',
-                         status: 'SUCCESS',
-                         description: 'pipeline completed',
-                         context: 'jenkins cicd',
-                         credentialsId: 'github_token'
+            script {
+                githubNotify account: 'mohand-djouadi',
+                             repo: 'biblio-api',
+                             sha: env.GIT_COMMIT,
+                             status: 'SUCCESS',
+                             description: 'pipeline completed',
+                             context: 'jenkins cicd',
+                             credentialsId: 'github_token'
+            }
         }
         failure {
-            githubNotify account: 'mohand-djouadi',
-                         repo: 'biblio-api',
-                         status: 'FAILURE',
-                         description: 'pipeline failed',
-                         context: 'jenkins cicd',
-                         credentialsId: 'github_token'
+            script {
+                githubNotify account: 'mohand-djouadi',
+                             repo: 'biblio-api',
+                             sha: env.GIT_COMMIT,
+                             status: 'FAILURE',
+                             description: 'pipeline failed',
+                             context: 'jenkins cicd',
+                             credentialsId: 'github_token'
+            }
         }
     }
 }
