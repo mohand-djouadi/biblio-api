@@ -30,7 +30,7 @@ pipeline {
                              status: 'SUCCESS',
                              description: 'pipeline completed',
                              context: 'jenkins cicd',
-                             credentialsId: 'github_token'
+                             credentialsId: 'github_token_global'
             }
         }
         failure {
@@ -41,7 +41,7 @@ pipeline {
                              status: 'FAILURE',
                              description: 'pipeline failed',
                              context: 'jenkins/cicd',
-                             credentialsId: 'github_token'
+                             credentialsId: 'github_token_global'
             }
         }
     }
