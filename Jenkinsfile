@@ -23,10 +23,10 @@ pipeline {
     }
     post {
         success {
-            githubNotify status: 'SUCCESS', description: 'pipeline completed', context: 'jenkins cicd'
+            githubNotify status: 'SUCCESS', description: 'pipeline completed', context: 'jenkins cicd', credentialsId: 'github_token'
         }
         failure {
-            githubNotify status: 'FAILURE', description: 'pipeline failed', context: 'jenkins cicd'
+            githubNotify status: 'FAILURE', description: 'pipeline failed', context: 'jenkins cicd', credentialsId: 'github_token'
         }
     }
 }
