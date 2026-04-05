@@ -26,7 +26,7 @@ pipeline {
             script {
                 githubNotify account: 'mohand-djouadi',
                              repo: 'biblio-api',
-                             sha: env.GIT_COMMIT,
+                             sha: "${env.GIT_COMMIT}",
                              status: 'SUCCESS',
                              description: 'pipeline completed',
                              context: 'jenkins cicd',
@@ -37,10 +37,10 @@ pipeline {
             script {
                 githubNotify account: 'mohand-djouadi',
                              repo: 'biblio-api',
-                             sha: env.GIT_COMMIT,
+                             sha: "${env.GIT_COMMIT}",
                              status: 'FAILURE',
                              description: 'pipeline failed',
-                             context: 'jenkins cicd',
+                             context: 'jenkins/cicd',
                              credentialsId: 'github_token'
             }
         }
