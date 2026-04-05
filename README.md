@@ -42,7 +42,7 @@ L'API utilise deux méthodes d'authentification :
 - **Basic Auth** : Pour l'accès initial et la gestion des comptes.
 - **JWT (JSON Web Token)** : Pour sécuriser les requêtes après l'authentification.
 
-### Exemple de requête authentifiée (JWT)
+### Exemple de requête authentifiée (JWT) 
 
 ```bash
 curl -H "Authorization: Bearer <votre_token>" http://localhost:8080/api/livres
