@@ -21,4 +21,16 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            githubNotify status: 'SUCCESS'
+                         description: 'pipeline completed'
+                         context: 'jenkins cicd'
+        }
+        failure {
+            githubNotify status: 'FAILURE'
+                         description: 'pipeline failed'
+                         context: 'jenkins cicd'
+        }
+    }
 }
