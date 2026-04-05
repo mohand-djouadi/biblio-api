@@ -4,6 +4,16 @@ pipeline {
         githubPush()
     }
     stages {
+        stage('debug status') {
+            steps {
+                script {
+                    githubNotify status: 'PENDING',
+                                 description: 'debug test',
+                                 context: 'jenkins test',
+                                 credentialsId: 'github_token'
+                }
+            }
+        }
         stage ('Checkout') {
             steps {
                 checkout scm
