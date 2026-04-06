@@ -27,7 +27,7 @@ pipeline {
                         account: 'mohand-djouadi',
                         repo: 'biblio-api',
                         sha: "${env.GIT_COMMIT_REV}",
-                        status: 'SUCCESS',
+                        status: 'PENDING',
                         context: 'jenkins/cicd'
                     )
                 }
