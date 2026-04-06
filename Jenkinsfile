@@ -17,11 +17,11 @@ pipeline {
     stages {
         stage ('Checkout') {
             steps {
-                def scmVars = checkout scm
-                env.GIT_COMMIT_REV = scmVars.GIT_COMMIT
-                sh 'git log --oneline -5'
-                echo "${env.GIT_COMMIT}"
                 script {
+                    def scmVars = checkout scm
+                    env.GIT_COMMIT_REV = scmVars.GIT_COMMIT
+                    sh 'git log --oneline -5'
+                    echo "${env.GIT_COMMIT}"
                     githubNotify(
                         credentialsId: 'github_token',
                         account: 'mohand-djouadi',
