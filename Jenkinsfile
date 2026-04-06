@@ -17,7 +17,8 @@ pipeline {
     stages {
         stage ('Checkout') {
             steps {
-                checkout scm
+                def scmVars = checkout scm
+                env.GIT_COMMIT_REV = scmVars.GIT_COMMIT
                 sh 'git log --oneline -5'
                 echo "${env.GIT_COMMIT}"
                 script {
