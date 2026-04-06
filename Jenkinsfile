@@ -30,7 +30,6 @@ pipeline {
                     repo: 'biblio-api',
                     sha: "${env.GIT_COMMIT}",
                     status: 'SUCCESS',
-                    description: 'pipeline completed',
                     context: 'jenkins/cicd'
                 )
             }
@@ -43,7 +42,6 @@ pipeline {
                     repo: 'biblio-api',
                     sha: "${env.GIT_COMMIT}",
                     status: 'FAILURE',
-                    description: 'pipeline failed',
                     context: 'jenkins/cicd'
                 )
             }
