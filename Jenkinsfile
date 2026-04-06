@@ -18,16 +18,15 @@ pipeline {
         stage ('Checkout') {
             steps {
                 checkout scm
-                     script {
-                          githubNotify(
-                               credentialsId: 'github_token',
-                               account: 'mohand-djouadi',
-                               repo: 'biblio-api',
-                               sha: "${env.GIT_COMMIT}",
-                               status: 'SUCCESS',
-                               context: 'jenkins/cicd'
-                          )
-                     }
+                script {
+                    githubNotify(
+                        credentialsId: 'github_token',
+                        account: 'mohand-djouadi',
+                        repo: 'biblio-api',
+                        sha: "${env.GIT_COMMIT}",
+                        status: 'SUCCESS',
+                        context: 'jenkins/cicd'
+                    )
                 }
             }
         }
