@@ -24,24 +24,18 @@ pipeline {
     post {
         success {
             script {
-                githubNotify account: 'mohand-djouadi',
-                             repo: 'biblio-api',
-                             sha: "${env.GIT_COMMIT}",
+                githubNotify sha: "${env.GIT_COMMIT}",
                              status: 'SUCCESS',
                              description: 'pipeline completed',
-                             context: 'jenkins cicd',
-                             credentialsId: 'github_token_global'
+                             context: 'jenkins cicd'
             }
         }
         failure {
             script {
-                githubNotify account: 'mohand-djouadi',
-                             repo: 'biblio-api',
-                             sha: "${env.GIT_COMMIT}",
+                githubNotify sha: "${env.GIT_COMMIT}",
                              status: 'FAILURE',
                              description: 'pipeline failed',
-                             context: 'jenkins/cicd',
-                             credentialsId: 'github_token_global'
+                             context: 'jenkins/cicd'
             }
         }
     }
