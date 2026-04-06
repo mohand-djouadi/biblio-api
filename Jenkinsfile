@@ -3,6 +3,10 @@ pipeline {
     triggers {
         githubPush()
     }
+    environment {
+        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+    }
     stages {
         stage ('Checkout') {
             steps {
