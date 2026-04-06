@@ -51,7 +51,7 @@ pipeline {
                     credentialsId: 'github_token',
                     account: 'mohand-djouadi',
                     repo: 'biblio-api',
-                    sha: "${env.GIT_COMMIT}",
+                    sha: "${env.GIT_COMMIT_REV}",
                     status: 'SUCCESS',
                     context: 'jenkins/cicd'
                 )
@@ -63,7 +63,7 @@ pipeline {
                     credentialsId: 'github_token',
                     account: 'mohand-djouadi',
                     repo: 'biblio-api',
-                    sha: "${env.GIT_COMMIT}",
+                    sha: "${env.GIT_COMMIT_REV}",
                     status: 'FAILURE',
                     context: 'jenkins/cicd'
                 )
