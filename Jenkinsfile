@@ -21,12 +21,12 @@ pipeline {
                     def scmVars = checkout scm
                     env.GIT_COMMIT_REV = scmVars.GIT_COMMIT
                     sh 'git log --oneline -5'
-                    echo "${env.GIT_COMMIT}"
+                    echo "${env.GIT_COMMIT_REV}"
                     githubNotify(
                         credentialsId: 'github_token',
                         account: 'mohand-djouadi',
                         repo: 'biblio-api',
-                        sha: "${env.GIT_COMMIT}",
+                        sha: "${env.GIT_COMMIT_REV}",
                         status: 'SUCCESS',
                         context: 'jenkins/cicd'
                     )
