@@ -25,7 +25,9 @@ pipeline {
         success {
             script {
                 githubNotify(
-                    credentialsId: 'github_token', // Add this line
+                    credentialsId: 'github_token',
+                    account: 'mohand-djouadi',
+                    repo: 'biblio-api',
                     sha: "${env.GIT_COMMIT}",
                     status: 'SUCCESS',
                     description: 'pipeline completed',
@@ -36,7 +38,9 @@ pipeline {
         failure {
             script {
                 githubNotify(
-                    credentialsId: 'github_token', // Add this line
+                    credentialsId: 'github_token',
+                    account: 'mohand-djouadi',
+                    repo: 'biblio-api',
                     sha: "${env.GIT_COMMIT}",
                     status: 'FAILURE',
                     description: 'pipeline failed',
