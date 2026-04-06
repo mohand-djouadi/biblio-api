@@ -18,15 +18,17 @@ pipeline {
         stage ('Checkout') {
             steps {
                 checkout scm
-                sh 'git log --oneline -5'
-            }
-        }
-        stage('Check Java') {
-            steps {
-                sh 'java -version'
-                sh 'javac -version'
-                sh 'mvn -version'
-                sh 'echo $JAVA_HOME'
+                     script {
+                          githubNotify(
+                               credentialsId: 'github_token',
+                               account: 'mohand-djouadi',
+                               repo: 'biblio-api',
+                               sha: "${env.GIT_COMMIT}",
+                               status: 'SUCCESS',
+                               context: 'jenkins/cicd'
+                          )
+                     }
+                }
             }
         }
         stage ('test') {
