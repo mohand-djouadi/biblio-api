@@ -18,6 +18,7 @@ pipeline {
         stage ('Checkout') {
             steps {
                 checkout scm
+                sh 'git log --oneline -5'
                 script {
                     githubNotify(
                         credentialsId: 'github_token',
