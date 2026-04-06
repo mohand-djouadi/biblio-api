@@ -24,18 +24,24 @@ pipeline {
     post {
         success {
             script {
-                githubNotify sha: "${env.GIT_COMMIT}",
-                             status: 'SUCCESS',
-                             description: 'pipeline completed',
-                             context: 'jenkins cicd'
+                githubNotify(
+                    credentialsId: 'github_token', // Add this line
+                    sha: "${env.GIT_COMMIT}",
+                    status: 'SUCCESS',
+                    description: 'pipeline completed',
+                    context: 'jenkins/cicd'
+                )
             }
         }
         failure {
             script {
-                githubNotify sha: "${env.GIT_COMMIT}",
-                             status: 'FAILURE',
-                             description: 'pipeline failed',
-                             context: 'jenkins/cicd'
+                githubNotify(
+                    credentialsId: 'github_token', // Add this line
+                    sha: "${env.GIT_COMMIT}",
+                    status: 'FAILURE',
+                    description: 'pipeline failed',
+                    context: 'jenkins/cicd'
+                )
             }
         }
     }
