@@ -19,6 +19,7 @@ pipeline {
             steps {
                 checkout scm
                 sh 'git log --oneline -5'
+                echo "${env.GIT_COMMIT}"
                 script {
                     githubNotify(
                         credentialsId: 'github_token',
