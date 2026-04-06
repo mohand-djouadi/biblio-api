@@ -10,6 +10,14 @@ pipeline {
                 sh 'git log --oneline -5'
             }
         }
+        stage('Check Java') {
+            steps {
+                sh 'java -version'
+                sh 'javac -version'
+                sh 'mvn -version'
+                sh 'echo $JAVA_HOME'
+            }
+        }
         stage ('test') {
             steps {
                 sh 'mvn test'
