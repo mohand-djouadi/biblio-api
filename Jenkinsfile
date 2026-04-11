@@ -12,8 +12,7 @@ pipeline {
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-21-openjdk'
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
-        RENDER_API_KEY = credentials('render_api_key')
-        RENDER_SUNLIB_HOOK = "https://api.render.com/deploy/srv-d2qe1hndiees73csodl0?key=$RENDER_API_KEY"
+        RENDER_SERVICE = credentials('render_sunlib_id')
     }
 
     stages {
@@ -49,11 +48,13 @@ pipeline {
             steps {
                 script {
                     echo "deploying to render ........."
-                    def response = httpRequest(
-                        url: "$RENDER_SUNLIB_HOOK",
-                        httpMode: 'POST',
-                        validResponseCode: '200:299'
-                    )
+                    withCredentials([string(credentialsId: 'render_api_key', variable: 'RENDER_API_KEY')]) {
+                        def response = httpRequest(
+                            url: "https://api.render.com/deploy/${env.RENDER_SERVICE}?key=${RENDER_API_KEY}",
+                            httpMode: 'POST',
+                            validResponseCodes: '200:299'
+                        )
+                    echo "Render response status: ${response.status}"
                 }
             }
         }
