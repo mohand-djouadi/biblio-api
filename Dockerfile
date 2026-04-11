@@ -4,7 +4,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /sunlib
 COPY --from=build /target/*.jar sunlib.jar
 ENTRYPOINT ["java", "-jar", "sunlib.jar"]
