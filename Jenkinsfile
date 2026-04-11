@@ -12,6 +12,8 @@ pipeline {
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-21-openjdk'
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
+        RENDER_API_KEY = credentials('render_api_key')
+        RENDER_SUNLIB_SERVICE = credentials('render_sunlib_id')
     }
 
     stages {
@@ -41,6 +43,11 @@ pipeline {
         stage ('build') {
             steps {
                 sh 'mvn clean package'
+            }
+        }
+        stage ('deploye to Render') {
+            steps {
+                sh 'render deploys create $RENDER_SUNLIB_SERVICE --output json --confirm'
             }
         }
     }
