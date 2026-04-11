@@ -54,6 +54,7 @@ pipeline {
                             httpMode: 'POST',
                             validResponseCodes: '200:299'
                         )
+                    }
                     echo "Render response status: ${response.status}"
                 }
             }
