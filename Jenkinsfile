@@ -3,6 +3,14 @@ pipeline {
 
     triggers {
         githubPush()
+        githubPullRequests(
+            triggerMode('HEAVY_HOOKS')
+            events([
+                Open(),
+                Merged(),
+            ]),
+            preStatus: true
+        )
     }
 
     options {
@@ -31,6 +39,18 @@ pipeline {
                         status: 'PENDING',
                         context: 'jenkins/cicd'
                     )
+                }
+            }
+        }
+        stage ('Check PR') {
+            when {
+                expression { return env.CHANGE_ID != null }
+            }
+            steps {
+                script {
+                    echo "PR number : ${env.CHANGE_ID}"
+                    echo "PR branch : ${env.CHANGE_BRANHC}"
+                    echo "PR target : ${env.CHANGE_TARGET}"
                 }
             }
         }
