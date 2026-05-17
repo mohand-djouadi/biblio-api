@@ -5,7 +5,7 @@ pipeline {
         githubPush()
         githubPullRequests(
             triggerMode: 'HEAVY_HOOKS',
-            events: [githubPROpen(), githubPRCommit()]
+            events: [Open(), commit()]
         )
     }
 
