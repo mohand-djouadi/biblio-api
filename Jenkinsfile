@@ -1,18 +1,6 @@
 pipeline {
     agent any
 
-    triggers {
-        githubPush()
-        githubPullRequests(
-            triggerMode('HEAVY_HOOKS'),
-            events([
-                Open(),
-                Merged(),
-            ]),
-            preStatus: true
-        )
-    }
-
     options {
         skipDefaultCheckout(true)
     }
