@@ -3,10 +3,6 @@ pipeline {
 
     triggers {
         githubPush()
-        githubPullRequests(
-            triggerMode: 'HEAVY_HOOKS',
-            events: [Open(), commitChanged()]
-        )
     }
 
     options {
@@ -20,18 +16,6 @@ pipeline {
     }
 
     stages {
-        stage ('Check PR') {
-            when {
-                changeRequest()
-            }
-            steps {
-                script {
-                    echo "PR_ID : ${env.CHANGE_ID}"
-                    echo "Source : ${env.CHANGE_BRANCH}"
-                    echo "Target : ${env.CHANGE_TARGET}"
-                }
-            }
-        }
         stage ('Checkout') {
             steps {
                 script {
