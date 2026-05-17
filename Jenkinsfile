@@ -5,7 +5,7 @@ pipeline {
         githubPush()
         githubPullRequests(
             triggerMode: 'HEAVY_HOOKS',
-            events: [Open(), commit()]
+            events: [Open(), commitCreated()]
         )
     }
 
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     echo "PR_ID : ${env.CHANGE_ID}"
-                    echo "Source : ${env.VHANGE_BRANCH}"
+                    echo "Source : ${env.CHANGE_BRANCH}"
                     echo "Target : ${env.CHANGE_TARGET}"
                 }
             }
