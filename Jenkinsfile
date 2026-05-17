@@ -4,7 +4,7 @@ pipeline {
     triggers {
         githubPush()
         githubPullRequests(
-            triggerMode('HEAVY_HOOKS')
+            triggerMode('HEAVY_HOOKS'),
             events([
                 Open(),
                 Merged(),
