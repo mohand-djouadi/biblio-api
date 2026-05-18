@@ -65,6 +65,9 @@ pipeline {
             }
         }
         stage ('deploye to Render') {
+            when {
+                expression { return env.CHANGE_ID == null }
+            }
             steps {
                 script {
                     echo "deploying to render ........."
