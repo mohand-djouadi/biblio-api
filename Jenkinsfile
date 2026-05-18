@@ -3,14 +3,6 @@ pipeline {
 
     triggers {
         githubPush()
-        githubPullRequests(
-            triggerMode('HEAVY_HOOKS')
-            events([
-                Open(),
-                Merged(),
-            ]),
-            preStatus: true
-        )
     }
 
     options {
