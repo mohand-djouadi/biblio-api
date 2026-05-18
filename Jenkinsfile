@@ -36,7 +36,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "PR number : ${env.CHANGE_ID}"
+                    echo "PR ID : ${env.CHANGE_ID}"
                     echo "PR branch : ${env.CHANGE_BRANHC}"
                     echo "PR target : ${env.CHANGE_TARGET}"
                 }
